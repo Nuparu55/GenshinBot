@@ -5,6 +5,7 @@ using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System;
+using System.Configuration;
 using System.Threading.Tasks;
 
 namespace GenshinBot
@@ -14,10 +15,11 @@ namespace GenshinBot
         private DiscordSocketClient _client;
         private readonly CommandService _commands;
         private readonly IServiceProvider _services;
-        private string _token = "ODgzMDc2MTIwNzYzODU5MDE0.YTEquQ.PnHp65LOB8UH_XanFhIixjUEho0";
+        private string _token;
 
         public Bot()
         {
+            _token = ConfigurationManager.AppSettings["Token"];
             var _config = new DiscordSocketConfig { MessageCacheSize = 100, LogLevel = LogSeverity.Info };
             _client = new DiscordSocketClient(_config);
             _commands = new CommandService(new CommandServiceConfig { LogLevel = LogSeverity.Info, CaseSensitiveCommands = false });
